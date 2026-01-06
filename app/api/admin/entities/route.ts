@@ -41,13 +41,20 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
 
+  if (!data) {
+    return NextResponse.json([]);
+  }
+
   // Transform data to include both name and title fields
-  const entities = data?.map((entity: any) => ({
-    id: entity.id,
-    slug: entity.slug,
-    name: config.titleField ? undefined : (entity[config.nameField] as string),
-    title: config.titleField ? (entity[config.titleField] as string) : undefined,
-  })) || [];
+  const entities = data.map((entity) => {
+    const entityRecord = entity as unknown as Record<string, unknown>;
+    return {
+      id: entityRecord.id as string,
+      slug: entityRecord.slug as string,
+      name: config.titleField ? undefined : (entityRecord[config.nameField] as string),
+      title: config.titleField ? (entityRecord[config.titleField] as string) : undefined,
+    };
+  });
 
   return NextResponse.json(entities);
 }

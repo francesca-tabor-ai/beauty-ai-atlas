@@ -39,7 +39,7 @@ export function SiteHeader() {
           const role = user.app_metadata?.role;
           setIsAdmin(role === "admin");
         }
-      } catch (error) {
+      } catch (_error) {
         // Silently fail - user is not authenticated or error occurred
         setIsAdmin(false);
       }

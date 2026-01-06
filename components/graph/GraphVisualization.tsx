@@ -62,8 +62,8 @@ interface GraphVisualizationProps {
 
 export function GraphVisualization({ entityParam }: GraphVisualizationProps) {
   const router = useRouter();
-  const [nodes, setNodes, onNodesChange] = useNodesState([]);
-  const [edges, setEdges, onEdgesChange] = useEdgesState([]);
+  const [nodes, setNodes, onNodesChange] = useNodesState<Node[]>([]);
+  const [edges, setEdges, onEdgesChange] = useEdgesState<Edge[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [searchInput, setSearchInput] = useState(entityParam);
@@ -120,9 +120,11 @@ export function GraphVisualization({ entityParam }: GraphVisualizationProps) {
       const graphEdges: Edge[] = [];
 
       // Starting node (centered, larger)
+      // Entity can have either 'name' or 'title' field depending on type
+      const startingEntityRecord = startingEntity as Record<string, unknown>;
       const startingNodeTitle =
-        (startingEntity as any).name ||
-        (startingEntity as any).title ||
+        (startingEntityRecord.name as string | undefined) ||
+        (startingEntityRecord.title as string | undefined) ||
         startingEntity.slug;
       graphNodes.push({
         id: startingEntity.id,
@@ -196,10 +198,12 @@ export function GraphVisualization({ entityParam }: GraphVisualizationProps) {
       dagreGraph.setGraph({ rankdir: "TB", nodesep: 50, ranksep: 100 });
 
       graphNodes.forEach((node) => {
+        const nodeWidth = typeof node.style?.width === "number" ? node.style.width : 180;
+        const nodeHeight = typeof node.style?.height === "number" ? node.style.height : 60;
         dagreGraph.setNode(node.id, {
-      width: node.style?.width || 180,
-      height: node.style?.height || 60,
-    });
+          width: nodeWidth,
+          height: nodeHeight,
+        });
       });
 
       graphEdges.forEach((edge) => {
@@ -211,11 +215,13 @@ export function GraphVisualization({ entityParam }: GraphVisualizationProps) {
       // Update node positions
       const layoutedNodes = graphNodes.map((node) => {
         const nodeWithPosition = dagreGraph.node(node.id);
+        const nodeWidth = typeof node.style?.width === "number" ? node.style.width : 180;
+        const nodeHeight = typeof node.style?.height === "number" ? node.style.height : 60;
         return {
           ...node,
           position: {
-            x: nodeWithPosition.x - (node.style?.width || 180) / 2,
-            y: nodeWithPosition.y - (node.style?.height || 60) / 2,
+            x: nodeWithPosition.x - nodeWidth / 2,
+            y: nodeWithPosition.y - nodeHeight / 2,
           },
         };
       });

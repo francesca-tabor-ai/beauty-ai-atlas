@@ -13,15 +13,17 @@ type TableRow<T extends TableName> = Database["public"]["Tables"][T]["Row"];
 
 /**
  * Type helper for table insert types
+ * (Currently unused but kept for future use)
  */
-type TableInsert<T extends TableName> =
-  Database["public"]["Tables"][T]["Insert"];
+// type TableInsert<T extends TableName> =
+//   Database["public"]["Tables"][T]["Insert"];
 
 /**
  * Type helper for table update types
+ * (Currently unused but kept for future use)
  */
-type TableUpdate<T extends TableName> =
-  Database["public"]["Tables"][T]["Update"];
+// type TableUpdate<T extends TableName> =
+//   Database["public"]["Tables"][T]["Update"];
 
 /**
  * Generic filter options for querying entities

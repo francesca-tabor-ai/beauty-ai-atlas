@@ -196,7 +196,7 @@ export function SearchDropdown() {
       {isOpen && query.trim().length >= 2 && !loading && totalResults === 0 && (
         <Card className="absolute z-50 mt-2 w-96">
           <CardContent className="p-4 text-center text-sm text-muted-foreground">
-            No results found for "{query}"
+            No results found for &quot;{query}&quot;
           </CardContent>
         </Card>
       )}

@@ -16,7 +16,7 @@ interface EntityCardProps {
 export function EntityCard({
   title,
   description,
-  slug,
+  slug: _slug,
   href,
   tags = [],
   category,
