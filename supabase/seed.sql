@@ -41,7 +41,19 @@ INSERT INTO brands (slug, name, description, website, logo_url, category, headqu
   2014,
   ARRAY['digital-native', 'community-driven', 'personalization', 'millennial'],
   true
-);
+)
+ON CONFLICT (slug) DO UPDATE
+SET
+  name = EXCLUDED.name,
+  description = EXCLUDED.description,
+  website = EXCLUDED.website,
+  logo_url = EXCLUDED.logo_url,
+  category = EXCLUDED.category,
+  headquarters = EXCLUDED.headquarters,
+  founded_year = EXCLUDED.founded_year,
+  tags = EXCLUDED.tags,
+  published = EXCLUDED.published,
+  updated_at = NOW();
 
 -- ============================================================================
 -- USE CASES (3 entries)
@@ -77,7 +89,17 @@ INSERT INTO use_cases (slug, title, description, category, maturity_level, impac
   7,
   ARRAY['recommendation-systems', 'personalization', 'e-commerce', 'nlp'],
   true
-);
+)
+ON CONFLICT (slug) DO UPDATE
+SET
+  title = EXCLUDED.title,
+  description = EXCLUDED.description,
+  category = EXCLUDED.category,
+  maturity_level = EXCLUDED.maturity_level,
+  impact_score = EXCLUDED.impact_score,
+  tags = EXCLUDED.tags,
+  published = EXCLUDED.published,
+  updated_at = NOW();
 
 -- ============================================================================
 -- AI SPECIALISMS (3 entries)
@@ -110,7 +132,16 @@ INSERT INTO ai_specialisms (slug, name, description, category, maturity_timeline
   '{"2015": "basic", "2018": "ml-enhanced", "2021": "deep-learning", "2024": "transformer-based"}'::jsonb,
   ARRAY['collaborative-filtering', 'content-based', 'hybrid'],
   true
-);
+)
+ON CONFLICT (slug) DO UPDATE
+SET
+  name = EXCLUDED.name,
+  description = EXCLUDED.description,
+  category = EXCLUDED.category,
+  maturity_timeline = EXCLUDED.maturity_timeline,
+  tags = EXCLUDED.tags,
+  published = EXCLUDED.published,
+  updated_at = NOW();
 
 -- ============================================================================
 -- JOB ROLES (3 entries)
@@ -152,7 +183,19 @@ INSERT INTO job_roles (slug, title, description, department, seniority_level, ai
   ARRAY['unity', 'arkit', 'ar-core', 'computer-vision', '3d-graphics', 'swift', 'kotlin'],
   ARRAY['ar', 'mobile-development', 'computer-vision'],
   true
-);
+)
+ON CONFLICT (slug) DO UPDATE
+SET
+  title = EXCLUDED.title,
+  description = EXCLUDED.description,
+  department = EXCLUDED.department,
+  seniority_level = EXCLUDED.seniority_level,
+  ai_impact_level = EXCLUDED.ai_impact_level,
+  emerging = EXCLUDED.emerging,
+  skills_required = EXCLUDED.skills_required,
+  tags = EXCLUDED.tags,
+  published = EXCLUDED.published,
+  updated_at = NOW();
 
 -- ============================================================================
 -- PROJECTS (3 entries)
@@ -236,7 +279,18 @@ INSERT INTO projects (slug, title, description, category, business_case, prd, ma
   'concept',
   ARRAY['personalization', 'recommendation-systems', 'skincare'],
   true
-);
+)
+ON CONFLICT (slug) DO UPDATE
+SET
+  title = EXCLUDED.title,
+  description = EXCLUDED.description,
+  category = EXCLUDED.category,
+  business_case = EXCLUDED.business_case,
+  prd = EXCLUDED.prd,
+  maturity = EXCLUDED.maturity,
+  tags = EXCLUDED.tags,
+  published = EXCLUDED.published,
+  updated_at = NOW();
 
 -- ============================================================================
 -- TIMELINE EVENTS (3 entries)
@@ -275,7 +329,18 @@ INSERT INTO timeline_events (slug, year, month, title, description, event_type, 
   'high',
   ARRAY['regulation', 'compliance', 'eu', 'diagnostics'],
   true
-);
+)
+ON CONFLICT (slug) DO UPDATE
+SET
+  year = EXCLUDED.year,
+  month = EXCLUDED.month,
+  title = EXCLUDED.title,
+  description = EXCLUDED.description,
+  event_type = EXCLUDED.event_type,
+  significance = EXCLUDED.significance,
+  tags = EXCLUDED.tags,
+  published = EXCLUDED.published,
+  updated_at = NOW();
 
 -- ============================================================================
 -- LEARNING PATHS (3 entries)
@@ -324,7 +389,17 @@ INSERT INTO learning_paths (slug, title, description, difficulty, duration_hours
   ],
   ARRAY['advanced', 'career', 'comprehensive'],
   true
-);
+)
+ON CONFLICT (slug) DO UPDATE
+SET
+  title = EXCLUDED.title,
+  description = EXCLUDED.description,
+  difficulty = EXCLUDED.difficulty,
+  duration_hours = EXCLUDED.duration_hours,
+  steps = EXCLUDED.steps,
+  tags = EXCLUDED.tags,
+  published = EXCLUDED.published,
+  updated_at = NOW();
 
 -- ============================================================================
 -- EDGES (20 realistic relationships)
@@ -445,7 +520,13 @@ BEGIN
   -- GPT event influences generative AI specialism
   ('timeline_events', gpt_event_id, 'ai_specialisms', generative_ai_id, 'influences', 5, true, '{"context": "Market adoption driver"}'::jsonb),
   -- EU AI Act influences skin diagnostics (regulatory impact)
-  ('timeline_events', eu_act_event_id, 'use_cases', skin_diagnostics_id, 'influences', 4, true, '{"context": "Regulatory compliance requirement"}'::jsonb);
+  ('timeline_events', eu_act_event_id, 'use_cases', skin_diagnostics_id, 'influences', 4, true, '{"context": "Regulatory compliance requirement"}'::jsonb)
+ON CONFLICT (from_type, from_id, to_type, to_id, relation_type) DO UPDATE
+SET
+  strength = EXCLUDED.strength,
+  published = EXCLUDED.published,
+  metadata = EXCLUDED.metadata,
+  updated_at = NOW();
 
 END $$;
 
