@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Github } from "lucide-react";
+import { Github, LogIn } from "lucide-react";
 
 export function SiteFooter() {
   return (
@@ -51,6 +51,15 @@ export function SiteFooter() {
                   className="text-muted-foreground hover:text-foreground transition-colors"
                 >
                   Learning Paths
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/login"
+                  className="text-muted-foreground hover:text-accent transition-colors duration-150 focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background focus-visible:outline-none motion-reduce:transition-none flex items-center gap-1"
+                >
+                  <LogIn className="h-3 w-3" />
+                  Admin Login
                 </Link>
               </li>
             </ul>

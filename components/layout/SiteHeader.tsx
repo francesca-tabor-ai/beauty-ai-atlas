@@ -140,8 +140,15 @@ export function SiteHeader() {
             </Button>
           )}
 
-          {/* Auth Links */}
-          {isAuthenticated ? (
+          {/* Auth Links - Login always visible */}
+          <Link href="/login">
+            <Button variant="ghost" size="sm" className="hidden md:flex">
+              <LogIn className="mr-2 h-4 w-4" />
+              Admin Login
+            </Button>
+          </Link>
+          
+          {isAuthenticated && (
             <>
               {isAdmin && (
                 <Link href="/admin">
@@ -167,13 +174,6 @@ export function SiteHeader() {
                 Sign Out
               </Button>
             </>
-          ) : (
-            <Link href="/login">
-              <Button variant="ghost" size="sm" className="hidden md:flex">
-                <LogIn className="mr-2 h-4 w-4" />
-                Sign In
-              </Button>
-            </Link>
           )}
 
           {/* Mobile Menu Button */}
@@ -232,7 +232,17 @@ export function SiteHeader() {
                   {link.label}
                 </Link>
               ))}
-              {isAuthenticated ? (
+              {/* Admin Login - Always visible */}
+              <Link
+                href="/login"
+                className="px-3 py-2 text-sm font-medium text-muted-foreground transition-colors duration-150 hover:text-accent hover:bg-accent/10 rounded-md focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background focus-visible:outline-none motion-reduce:transition-none"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                <LogIn className="inline mr-2 h-4 w-4" />
+                Admin Login
+              </Link>
+              
+              {isAuthenticated && (
                 <>
                   {isAdmin && (
                     <Link
@@ -259,15 +269,6 @@ export function SiteHeader() {
                     Sign Out
                   </button>
                 </>
-              ) : (
-                <Link
-                  href="/login"
-                  className="px-3 py-2 text-sm font-medium text-muted-foreground transition-colors duration-150 hover:text-accent hover:bg-accent/10 rounded-md focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background focus-visible:outline-none motion-reduce:transition-none"
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  <LogIn className="inline mr-2 h-4 w-4" />
-                  Sign In
-                </Link>
               )}
             </nav>
           </div>
