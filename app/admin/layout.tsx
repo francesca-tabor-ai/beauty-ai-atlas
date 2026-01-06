@@ -1,4 +1,5 @@
 import { redirect } from "next/navigation";
+import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 import { AdminSidebar } from "@/components/admin/AdminSidebar";
 
@@ -33,12 +34,12 @@ export default async function AdminLayout({
           <p className="text-muted-foreground mb-8">
             You do not have permission to access this area.
           </p>
-          <a
+          <Link
             href="/"
             className="text-primary hover:underline"
           >
             Return to Home
-          </a>
+          </Link>
         </div>
       </div>
     );

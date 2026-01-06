@@ -1,10 +1,7 @@
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { Trash2 } from "lucide-react";
 import { DeleteEdgeButton } from "./delete-button";
-import type { Edge } from "@/lib/supabase/types";
 
 // Helper to get entity display name
 async function getEntityDisplayName(
@@ -34,9 +31,10 @@ async function getEntityDisplayName(
 
   if (!data) return null;
 
+  const dataRecord = data as unknown as Record<string, unknown>;
   return {
-    name: data[config.nameField] || data.slug,
-    slug: data.slug,
+    name: (dataRecord[config.nameField] as string | undefined) || (dataRecord.slug as string),
+    slug: dataRecord.slug as string,
   };
 }
 
