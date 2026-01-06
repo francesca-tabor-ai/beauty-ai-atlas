@@ -64,10 +64,10 @@ export function SiteFooter() {
             </p>
             <div className="flex items-center space-x-2">
               <Link
-                href="https://github.com"
+                href="https://github.com/francesca-tabor-ai/beauty-ai-atlas"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center space-x-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
+                className="flex items-center space-x-2 text-sm text-muted-foreground hover:text-accent transition-colors duration-150"
               >
                 <Github className="h-4 w-4" />
                 <span>GitHub</span>
