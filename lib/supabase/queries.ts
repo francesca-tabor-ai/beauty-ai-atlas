@@ -4,7 +4,7 @@ import type { Database } from "./types";
 /**
  * Type helper for table names in the database
  */
-type TableName = keyof Database["public"]["Tables"];
+type TableName = keyof Database["public"]["Tables"] & string;
 
 /**
  * Type helper for table row types
@@ -54,7 +54,7 @@ export async function getEntityBySlug<T extends TableName>(
   slug: string
 ): Promise<TableRow<T> | null> {
   const { data, error } = await supabase
-    .from(table)
+    .from(table as string)
     .select("*")
     .eq("slug", slug)
     .maybeSingle();
@@ -89,7 +89,7 @@ export async function getPublishedEntities<T extends TableName>(
   filters?: EntityFilters
 ): Promise<TableRow<T>[]> {
   let query = supabase
-    .from(table)
+    .from(table as string)
     .select("*")
     .eq("published", true);
 
@@ -171,17 +171,17 @@ export async function searchEntities<T extends TableName>(
     learning_paths: ["title", "description"],
   };
 
-  const searchFields = fields || defaultFields[table] || ["name", "title"];
+  const searchFields = fields || defaultFields[table as string] || ["name", "title"];
 
   // Build OR conditions for each field
   let query = supabase
-    .from(table)
+    .from(table as string)
     .select("*")
     .eq("published", true);
 
   // Apply search using or() for multiple fields with ilike
   const orConditions = searchFields
-    .map((field) => `${field}.ilike.%${searchTerm}%`)
+    .map((field: string) => `${field}.ilike.%${searchTerm}%`)
     .join(",");
 
   query = query.or(orConditions);
@@ -223,17 +223,19 @@ export async function getEntityEdges(
   let query = supabase.from("edges").select("*").eq("published", true);
 
   if (direction === "from") {
+    // Outgoing edges: entity is the source
     query = query
       .eq("from_type", entityType)
       .eq("from_id", entityId);
   } else if (direction === "to") {
+    // Incoming edges: entity is the target
     query = query
       .eq("to_type", entityType)
       .eq("to_id", entityId);
   } else {
-    // both directions
+    // Both directions: entity can be source or target
     query = query.or(
-      `from_type.eq.${entityType},from_id.eq.${entityId},to_type.eq.${entityType},to_id.eq.${entityId}`
+      `and(from_type.eq.${entityType},from_id.eq.${entityId}),and(to_type.eq.${entityType},to_id.eq.${entityId})`
     );
   }
 
@@ -276,7 +278,7 @@ export async function getRelatedEntities(
     .select("*")
     .eq("published", true)
     .or(
-      `from_type.eq.${entityType},from_id.eq.${entityId},to_type.eq.${entityType},to_id.eq.${entityId}`
+      `and(from_type.eq.${entityType},from_id.eq.${entityId}),and(to_type.eq.${entityType},to_id.eq.${entityId})`
     );
 
   if (relationType) {
