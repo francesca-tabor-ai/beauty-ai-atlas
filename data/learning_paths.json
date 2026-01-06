@@ -1,0 +1,55 @@
+[
+  {
+    "slug": "ai-beauty-fundamentals",
+    "title": "AI in Beauty: Fundamentals",
+    "description": "Learn the basics of AI applications in the beauty industry, from virtual try-on to personalized recommendations.",
+    "difficulty": "beginner",
+    "duration_hours": 8,
+    "steps": [
+      {
+        "order": 1,
+        "entity_type": "use_cases",
+        "entity_slug": "virtual-try-on",
+        "label": "Understand Virtual Try-On Use Case"
+      },
+      {
+        "order": 2,
+        "entity_type": "ai",
+        "entity_slug": "computer-vision",
+        "label": "Learn Computer Vision Basics"
+      },
+      {
+        "order": 3,
+        "entity_type": "brands",
+        "entity_slug": "loreal",
+        "label": "Explore L'Oréal's AI Implementation"
+      }
+    ],
+    "tags": ["beginner", "fundamentals", "ai", "beauty"],
+    "published": true
+  },
+  {
+    "slug": "advanced-ai-beauty",
+    "title": "Advanced AI in Beauty",
+    "description": "Deep dive into advanced AI techniques for beauty applications, including generative AI and recommendation systems.",
+    "difficulty": "advanced",
+    "duration_hours": 16,
+    "steps": [
+      {
+        "order": 1,
+        "entity_type": "ai",
+        "entity_slug": "nlp-beauty",
+        "label": "Master NLP for Beauty Applications"
+      },
+      {
+        "order": 2,
+        "entity_type": "projects",
+        "entity_slug": "skin-ai-diagnostic",
+        "label": "Study AI Skin Diagnostic Projects"
+      }
+    ],
+    "tags": ["advanced", "ai", "nlp", "diagnostics"],
+    "published": true
+  }
+]
+

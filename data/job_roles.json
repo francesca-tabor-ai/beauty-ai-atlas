@@ -1,0 +1,39 @@
+[
+  {
+    "slug": "ai-beauty-specialist",
+    "title": "AI Beauty Specialist",
+    "description": "Role focused on applying AI technologies to beauty product development and customer experience.",
+    "department": "Product Development",
+    "seniority_level": "mid-level",
+    "ai_impact_level": "high",
+    "emerging": true,
+    "skills_required": ["machine-learning", "beauty-industry", "data-analysis"],
+    "tags": ["emerging-role", "ai", "product-development"],
+    "published": true
+  },
+  {
+    "slug": "ar-developer-beauty",
+    "title": "AR Developer (Beauty)",
+    "description": "Develops augmented reality experiences for virtual try-on and product visualization.",
+    "department": "Engineering",
+    "seniority_level": "mid-level",
+    "ai_impact_level": "transformative",
+    "emerging": true,
+    "skills_required": ["ar", "computer-vision", "3d-modeling"],
+    "tags": ["ar", "emerging-role", "engineering"],
+    "published": true
+  },
+  {
+    "slug": "data-scientist-beauty",
+    "title": "Data Scientist (Beauty)",
+    "description": "Analyzes customer data and product performance to drive AI-powered insights.",
+    "department": "Data & Analytics",
+    "seniority_level": "senior",
+    "ai_impact_level": "high",
+    "emerging": false,
+    "skills_required": ["data-science", "python", "ml", "statistics"],
+    "tags": ["data-science", "analytics"],
+    "published": true
+  }
+]
+

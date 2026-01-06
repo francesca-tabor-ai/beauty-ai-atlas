@@ -1,0 +1,39 @@
+[
+  {
+    "slug": "computer-vision",
+    "name": "Computer Vision",
+    "description": "Image analysis and processing for skin diagnostics, color matching, and virtual try-on.",
+    "category": "computer_vision",
+    "maturity_timeline": {
+      "2020": "research",
+      "2022": "pilot",
+      "2024": "commercial"
+    },
+    "tags": ["image-processing", "skin-analysis", "color-matching"],
+    "published": true
+  },
+  {
+    "slug": "nlp-beauty",
+    "name": "NLP for Beauty",
+    "description": "Natural language processing for product descriptions, reviews analysis, and customer support.",
+    "category": "nlp",
+    "maturity_timeline": {
+      "2021": "research",
+      "2023": "commercial"
+    },
+    "tags": ["nlp", "reviews", "customer-support"],
+    "published": true
+  },
+  {
+    "slug": "recommendation-systems",
+    "name": "Recommendation Systems",
+    "description": "Personalized product recommendations using collaborative filtering and content-based approaches.",
+    "category": "recommendation_systems",
+    "maturity_timeline": {
+      "2019": "commercial"
+    },
+    "tags": ["recommendations", "personalization", "ml"],
+    "published": true
+  }
+]
+

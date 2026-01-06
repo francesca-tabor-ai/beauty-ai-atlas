@@ -1,0 +1,36 @@
+[
+  {
+    "slug": "modiface-acquisition",
+    "year": 2018,
+    "month": 3,
+    "title": "L'Oréal Acquires ModiFace",
+    "description": "L'Oréal acquires ModiFace, a leading AR beauty technology company, marking a major milestone in AI adoption in beauty.",
+    "event_type": "market",
+    "significance": "critical",
+    "tags": ["acquisition", "ar", "market-leadership", "ai-adoption"],
+    "published": true
+  },
+  {
+    "slug": "gpt-beauty-content",
+    "year": 2023,
+    "month": 11,
+    "title": "Generative AI Transforms Beauty Content",
+    "description": "Beauty brands begin using GPT and DALL-E for product descriptions, marketing content, and virtual influencer creation.",
+    "event_type": "technology",
+    "significance": "high",
+    "tags": ["generative-ai", "content-creation", "marketing", "nlp"],
+    "published": true
+  },
+  {
+    "slug": "eu-ai-act-beauty",
+    "year": 2024,
+    "month": 3,
+    "title": "EU AI Act Impacts Beauty Tech",
+    "description": "EU AI Act comes into effect, requiring beauty AI applications (especially diagnostic tools) to meet new compliance standards.",
+    "event_type": "regulation",
+    "significance": "high",
+    "tags": ["regulation", "compliance", "eu", "diagnostics"],
+    "published": true
+  }
+]
+

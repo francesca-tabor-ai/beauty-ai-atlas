@@ -1,0 +1,60 @@
+[
+  {
+    "slug": "modiface-integration",
+    "title": "ModiFace AR Integration",
+    "description": "Integration of ModiFace virtual try-on technology into L'Oréal's e-commerce platforms.",
+    "category": "Consumer Experience",
+    "business_case": {
+      "problem": "Low online conversion rates due to inability to try products",
+      "objective": "Increase online sales by 30% through virtual try-on",
+      "investment_range": "$5M-$10M",
+      "roi_assumptions": ["30% conversion increase", "20% higher AOV"],
+      "kpis": ["conversion_rate", "average_order_value", "time_on_site", "return_rate"]
+    },
+    "prd": {
+      "user_stories": [
+        "As a customer, I want to try on lipstick virtually",
+        "As a customer, I want to see how foundation matches my skin tone"
+      ],
+      "functional_requirements": ["Real-time AR rendering", "Color matching", "Product recommendations"],
+      "non_functional": ["<2s load time", "Works on 90%+ devices", "Accessibility compliance"],
+      "risks": ["Device compatibility", "Color accuracy", "Performance"],
+      "ethics_compliance": ["Privacy of facial data", "No age restrictions", "Inclusive skin tones"]
+    },
+    "maturity": "production",
+    "tags": ["ar", "e-commerce", "consumer-experience"],
+    "published": true
+  },
+  {
+    "slug": "skin-ai-diagnostic",
+    "title": "AI Skin Diagnostic Platform",
+    "description": "AI-powered skin analysis tool for dermatologists and consumers to assess skin conditions.",
+    "category": "Diagnostic Tools",
+    "business_case": {
+      "problem": "Limited access to dermatological consultations",
+      "objective": "Provide accessible skin analysis through AI",
+      "investment_range": "$2M-$5M",
+      "roi_assumptions": ["Subscription model", "B2B licensing"],
+      "kpis": ["user_engagement", "diagnostic_accuracy", "subscription_rate"]
+    },
+    "prd": {
+      "user_stories": [
+        "As a consumer, I want to analyze my skin condition using my phone camera"
+      ],
+      "functional_requirements": ["Image upload", "AI analysis", "Report generation"],
+      "non_functional": ["HIPAA compliance", "99.9% uptime"],
+      "risks": [
+        {
+          "description": "Misdiagnosis liability",
+          "severity": "high",
+          "mitigation": "Clear disclaimers, professional review option"
+        }
+      ],
+      "ethics_compliance": "Must comply with medical device regulations and data privacy laws"
+    },
+    "maturity": "pilot",
+    "tags": ["diagnostic", "healthcare", "computer-vision"],
+    "published": true
+  }
+]
+

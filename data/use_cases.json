@@ -1,0 +1,33 @@
+[
+  {
+    "slug": "virtual-try-on",
+    "title": "Virtual Try-On",
+    "description": "AR-powered virtual makeup and product try-on experiences for e-commerce.",
+    "category": "generative",
+    "maturity_level": "established",
+    "impact_score": 9,
+    "tags": ["ar", "e-commerce", "consumer-experience"],
+    "published": true
+  },
+  {
+    "slug": "skin-analysis",
+    "title": "AI Skin Analysis",
+    "description": "Computer vision-based skin condition analysis for personalized skincare recommendations.",
+    "category": "diagnostic",
+    "maturity_level": "growing",
+    "impact_score": 8,
+    "tags": ["computer-vision", "skincare", "personalization"],
+    "published": true
+  },
+  {
+    "slug": "product-recommendations",
+    "title": "AI Product Recommendations",
+    "description": "Machine learning-powered product recommendations based on user preferences and skin type.",
+    "category": "recommendation",
+    "maturity_level": "established",
+    "impact_score": 7,
+    "tags": ["ml", "recommendations", "personalization"],
+    "published": true
+  }
+]
+

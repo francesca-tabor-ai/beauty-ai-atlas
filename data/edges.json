@@ -1,0 +1,57 @@
+[
+  {
+    "from_type": "brands",
+    "from_slug": "loreal",
+    "to_type": "use_cases",
+    "to_slug": "virtual-try-on",
+    "relation_type": "implements",
+    "strength": 5,
+    "published": true
+  },
+  {
+    "from_type": "brands",
+    "from_slug": "loreal",
+    "to_type": "projects",
+    "to_slug": "modiface-integration",
+    "relation_type": "implements",
+    "strength": 5,
+    "published": true
+  },
+  {
+    "from_type": "use_cases",
+    "from_slug": "virtual-try-on",
+    "to_type": "ai",
+    "to_slug": "computer-vision",
+    "relation_type": "requires",
+    "strength": 5,
+    "published": true
+  },
+  {
+    "from_type": "projects",
+    "from_slug": "modiface-integration",
+    "to_type": "use_cases",
+    "to_slug": "virtual-try-on",
+    "relation_type": "demonstrates",
+    "strength": 5,
+    "published": true
+  },
+  {
+    "from_type": "job_roles",
+    "from_slug": "ar-developer-beauty",
+    "to_type": "use_cases",
+    "to_slug": "virtual-try-on",
+    "relation_type": "enables",
+    "strength": 4,
+    "published": true
+  },
+  {
+    "from_type": "learning_paths",
+    "from_slug": "ai-beauty-fundamentals",
+    "to_type": "use_cases",
+    "to_slug": "virtual-try-on",
+    "relation_type": "includes",
+    "strength": 3,
+    "published": true
+  }
+]
+

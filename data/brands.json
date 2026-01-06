@@ -1,0 +1,39 @@
+[
+  {
+    "slug": "loreal",
+    "name": "L'Oréal",
+    "description": "World's largest cosmetics company, pioneering AI in beauty through virtual try-on, skin analysis, and personalized recommendations.",
+    "website": "https://www.loreal.com",
+    "logo_url": "https://example.com/logos/loreal.png",
+    "category": "Luxury & Mass Market",
+    "headquarters": "Clichy, France",
+    "founded_year": 1909,
+    "tags": ["luxury", "k-beauty", "sustainability", "ai-innovation", "personalization"],
+    "published": true
+  },
+  {
+    "slug": "estee-lauder",
+    "name": "Estée Lauder",
+    "description": "Premium beauty brand leveraging AI for personalized skincare recommendations and virtual consultations.",
+    "website": "https://www.esteelauder.com",
+    "logo_url": null,
+    "category": "Luxury & Mass Market",
+    "headquarters": "New York, USA",
+    "founded_year": 1946,
+    "tags": ["luxury", "skincare", "ai-recommendations"],
+    "published": true
+  },
+  {
+    "slug": "glossier",
+    "name": "Glossier",
+    "description": "Digital-native beauty brand using AI for customer insights and product development.",
+    "website": "https://www.glossier.com",
+    "logo_url": null,
+    "category": "Indie & Niche",
+    "headquarters": "New York, USA",
+    "founded_year": 2014,
+    "tags": ["indie", "digital-native", "customer-insights"],
+    "published": true
+  }
+]
+
