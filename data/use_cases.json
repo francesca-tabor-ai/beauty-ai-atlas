@@ -20,14 +20,103 @@
     "published": true
   },
   {
-    "slug": "product-recommendations",
-    "title": "AI Product Recommendations",
-    "description": "Machine learning-powered product recommendations based on user preferences and skin type.",
+    "slug": "skin-diagnostics",
+    "title": "AI-Powered Skin Analysis",
+    "description": "Automated skin condition assessment using image analysis, machine learning, and dermatological knowledge bases.",
+    "category": "diagnostic",
+    "maturity_level": "growing",
+    "impact_score": 8,
+    "tags": ["computer-vision", "healthcare", "personalization", "diagnostics"],
+    "published": true
+  },
+  {
+    "slug": "virtual-try-on-tech",
+    "title": "Virtual Try-On Technology",
+    "description": "AR-powered virtual makeup and skincare try-on experiences using computer vision and facial recognition.",
+    "category": "generative",
+    "maturity_level": "established",
+    "impact_score": 9,
+    "tags": ["ar", "computer-vision", "consumer-experience"],
+    "published": true
+  },
+  {
+    "slug": "personalized-recommendations",
+    "title": "Personalized Product Recommendations",
+    "description": "ML-driven recommendation engines that suggest beauty products based on skin type, preferences, and purchase history.",
     "category": "recommendation",
     "maturity_level": "established",
+    "impact_score": 9,
+    "tags": ["recommendation-systems", "personalization", "e-commerce"],
+    "published": true
+  },
+  {
+    "slug": "skin-aging-wrinkle-mapping",
+    "title": "Skin Aging & Wrinkle Mapping",
+    "description": "Quantitative analysis of wrinkles, fine lines, and skin texture changes over time using facial imaging.",
+    "category": "diagnostic",
+    "maturity_level": "growing",
+    "impact_score": 8,
+    "tags": ["computer-vision", "aging", "skincare"],
+    "published": true
+  },
+  {
+    "slug": "hair-loss-scalp-diagnostics",
+    "title": "Hair Loss & Scalp Health Diagnostics",
+    "description": "AI-based analysis of scalp images to identify hair thinning, dandruff, and scalp health issues.",
+    "category": "diagnostic",
+    "maturity_level": "growing",
     "impact_score": 7,
-    "tags": ["ml", "recommendations", "personalization"],
+    "tags": ["computer-vision", "haircare", "diagnostics"],
+    "published": true
+  },
+  {
+    "slug": "climate-aware-beauty",
+    "title": "Climate-Aware Beauty Recommendations",
+    "description": "Adaptive beauty product and routine recommendations based on climate, humidity, and pollution data.",
+    "category": "recommendation",
+    "maturity_level": "emerging",
+    "impact_score": 7,
+    "tags": ["personalization", "climate-data", "analytics"],
+    "published": true
+  },
+  {
+    "slug": "ai-cosmetic-formulation",
+    "title": "AI-Assisted Cosmetic Formulation",
+    "description": "Machine learning systems that assist cosmetic scientists in designing and optimizing formulations.",
+    "category": "analytics",
+    "maturity_level": "growing",
+    "impact_score": 8,
+    "tags": ["formulation", "machine-learning", "r-and-d"],
+    "published": true
+  },
+  {
+    "slug": "environmental-impact-modeling",
+    "title": "Environmental Impact Modeling for Beauty Products",
+    "description": "AI models that estimate environmental impact across the lifecycle of beauty products and ingredients.",
+    "category": "analytics",
+    "maturity_level": "emerging",
+    "impact_score": 8,
+    "tags": ["sustainability", "lifecycle-analysis", "regulation"],
+    "published": true
+  },
+  {
+    "slug": "ai-beauty-content-generation",
+    "title": "AI-Generated Beauty Marketing Content",
+    "description": "Generative AI tools that produce beauty-focused copy, imagery, and campaign assets.",
+    "category": "generative",
+    "maturity_level": "established",
+    "impact_score": 9,
+    "tags": ["generative-ai", "marketing", "content"],
+    "published": true
+  },
+  {
+    "slug": "digital-twins-skin-hair",
+    "title": "Digital Twins for Skin & Hair",
+    "description": "Virtual replicas of skin and hair used to simulate treatments, products, and long-term outcomes.",
+    "category": "analytics",
+    "maturity_level": "emerging",
+    "impact_score": 10,
+    "tags": ["digital-twins", "simulation", "future-tech"],
     "published": true
   }
 ]
-
