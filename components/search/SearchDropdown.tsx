@@ -4,7 +4,7 @@ import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
-import { Search, Loader2 } from "lucide-react";
+import { Search, Loader2, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 
@@ -116,10 +116,12 @@ export function SearchDropdown() {
     0
   );
 
+  const hasValue = query.trim().length > 0;
+
   return (
     <div ref={containerRef} className="relative">
       <div className="relative">
-        <Search className="absolute left-2 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+        <Search className="absolute left-2 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground pointer-events-none" />
         <Input
           type="search"
           placeholder="Search..."
@@ -131,19 +133,39 @@ export function SearchDropdown() {
             }
           }}
           onFocus={() => {
-            if (totalResults > 0) {
+            if (totalResults > 0 || query.trim().length >= 2) {
               setIsOpen(true);
             }
           }}
-          className="w-64 pl-8"
+          className="w-64 pl-8 pr-8"
         />
         {loading && (
-          <Loader2 className="absolute right-2 top-1/2 h-4 w-4 -translate-y-1/2 animate-spin text-muted-foreground" />
+          <Loader2 className="absolute right-2 top-1/2 h-4 w-4 -translate-y-1/2 animate-spin text-muted-foreground pointer-events-none" />
+        )}
+        {!loading && hasValue && (
+          <button
+            type="button"
+            onClick={() => {
+              setQuery("");
+              setIsOpen(false);
+              setResults({});
+            }}
+            className={cn(
+              "absolute right-2 top-1/2 -translate-y-1/2 h-5 w-5 rounded-full bg-muted hover:bg-muted/80 transition-all duration-150 flex items-center justify-center",
+              "opacity-100 pointer-events-auto",
+              "hover:scale-110 active:scale-95",
+              "focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background focus-visible:outline-none",
+              "motion-reduce:transition-none motion-reduce:hover:transform-none"
+            )}
+            aria-label="Clear search"
+          >
+            <X className="h-3 w-3 text-muted-foreground" />
+          </button>
         )}
       </div>
 
       {isOpen && totalResults > 0 && (
-        <Card className="absolute z-50 mt-2 w-96 max-h-[400px] overflow-y-auto">
+        <Card className="absolute z-50 mt-2 w-96 max-h-[400px] overflow-y-auto animate-fade-in animate-slide-up motion-reduce:animate-none">
           <CardContent className="p-0">
             <div className="divide-y">
               {Object.entries(results).map(([entityType, items]) => (
@@ -156,7 +178,7 @@ export function SearchDropdown() {
                       key={item.id}
                       href={`${entityUrlMap[entityType]}/${item.slug}`}
                       onClick={() => handleResultClick(entityType, item.slug)}
-                      className="block px-2 py-2 hover:bg-accent rounded-md transition-colors"
+                      className="block px-2 py-2 hover:bg-accent rounded-md transition-colors duration-150 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background focus-visible:outline-none motion-reduce:transition-none"
                     >
                       <div className="text-sm font-medium">{item.title}</div>
                       <div className="text-xs text-muted-foreground font-mono">

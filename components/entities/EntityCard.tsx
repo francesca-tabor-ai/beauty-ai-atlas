@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
+import { ChevronRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface EntityCardProps {
@@ -32,13 +33,17 @@ export function EntityCard({
     <Link
       href={href}
       className={cn(
-        "group block rounded-lg border bg-card p-6 transition-all hover:border-primary hover:shadow-md",
+        "group relative block rounded-2xl border border-border bg-card p-6 transition-all duration-150 ease-out cursor-pointer",
+        "hover:-translate-y-[2px] hover:shadow-md hover:border-foreground/20",
+        "active:translate-y-0 active:shadow-sm",
+        "focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background focus-visible:outline-none",
+        "motion-reduce:transition-none motion-reduce:hover:transform-none",
         className
       )}
     >
       <div className="space-y-3">
         {/* Title */}
-        <h3 className="text-lg font-semibold group-hover:text-primary transition-colors">
+        <h3 className="text-lg font-semibold group-hover:text-primary transition-colors duration-150 group-hover:underline underline-offset-4">
           {title}
         </h3>
 
@@ -71,6 +76,9 @@ export function EntityCard({
             )}
           </div>
         )}
+
+        {/* Chevron affordance */}
+        <ChevronRight className="absolute right-4 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity duration-150 motion-reduce:transition-none" />
       </div>
     </Link>
   );
