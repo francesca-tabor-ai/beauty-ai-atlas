@@ -1,5 +1,19 @@
 // Database types for Beauty × AI Atlas
-// Generated from Supabase schema
+//
+// To generate real types from your Supabase schema, run:
+//   npx supabase gen types typescript --project-id YOUR_PROJECT_ID > lib/supabase/types.ts
+//
+// Or if using Supabase CLI locally:
+//   npx supabase gen types typescript --local > lib/supabase/types.ts
+//
+// This will generate a complete Database type that includes all tables,
+// relationships, and RLS policies from your schema.
+
+/**
+ * Placeholder Database type.
+ * Replace this with generated types from Supabase CLI.
+ */
+export type Database = any;
 
 export type EntityType =
   | "brands"
