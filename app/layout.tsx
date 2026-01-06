@@ -1,11 +1,16 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Inter, Playfair_Display } from "next/font/google";
 import { ThemeProvider } from "@/components/theme-provider";
 import { SiteHeader } from "@/components/layout/SiteHeader";
 import { SiteFooter } from "@/components/layout/SiteFooter";
 import "./globals.css";
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = Inter({ subsets: ["latin"], variable: "--font-body" });
+const playfairDisplay = Playfair_Display({
+  subsets: ["latin"],
+  weight: ["400", "600", "700"],
+  variable: "--font-headline",
+});
 
 export const metadata: Metadata = {
   title: "Beauty × AI Atlas",
@@ -19,7 +24,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={inter.className}>
+      <body className={`${inter.variable} ${playfairDisplay.variable} ${inter.className}`}>
         <ThemeProvider
           attribute="class"
           defaultTheme="system"

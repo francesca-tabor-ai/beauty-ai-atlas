@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import "../design/tokens.css";
 
 @theme {
   --color-border: hsl(214.3 31.8% 91.4%);
@@ -24,6 +25,10 @@
 
 @layer base {
   :root {
+    /* Brand Design Tokens */
+    --font-headline: var(--font-headline, 'Playfair Display', serif);
+    --font-body: var(--font-body, 'Inter', sans-serif);
+    
     --background: 0 0% 100%;
     --foreground: 222.2 84% 4.9%;
     --card: 0 0% 100%;
