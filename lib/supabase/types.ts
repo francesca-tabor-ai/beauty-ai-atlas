@@ -16,10 +16,10 @@
  * This is a temporary placeholder that will be replaced when running:
  *   npx supabase gen types typescript --project-id YOUR_PROJECT_ID > lib/supabase/types.ts
  * 
- * Using `any` here is acceptable as this is a generated type placeholder.
+ * This file is a placeholder and will be replaced by generated types.
+ * Using `any` here is necessary until real types are generated from Supabase.
  */
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export type Database = any;
+export type Database = any; // eslint-disable-line @typescript-eslint/no-explicit-any -- Placeholder type until Supabase types are generated
 
 export type EntityType =
   | "brands"
