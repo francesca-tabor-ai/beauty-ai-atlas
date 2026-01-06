@@ -3,10 +3,10 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { useTheme } from "next-themes";
-import { Menu, X, Sun, Moon, Search } from "lucide-react";
+import { Menu, X, Sun, Moon } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { createClient } from "@/lib/supabase/client";
+import { SearchDropdown } from "@/components/search/SearchDropdown";
 import { cn } from "@/lib/utils";
 
 const navLinks = [
@@ -77,15 +77,7 @@ export function SiteHeader() {
         <div className="flex items-center space-x-2">
           {/* Search Input (Desktop) */}
           <div className="hidden md:flex items-center">
-            <div className="relative">
-              <Search className="absolute left-2 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-              <Input
-                type="search"
-                placeholder="Search..."
-                className="w-64 pl-8"
-                disabled
-              />
-            </div>
+            <SearchDropdown />
           </div>
 
           {/* Theme Toggle */}
@@ -135,14 +127,8 @@ export function SiteHeader() {
         <div className="border-t md:hidden">
           <div className="container mx-auto px-4 py-4 space-y-3">
             {/* Mobile Search */}
-            <div className="relative">
-              <Search className="absolute left-2 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-              <Input
-                type="search"
-                placeholder="Search..."
-                className="w-full pl-8"
-                disabled
-              />
+            <div className="md:hidden">
+              <SearchDropdown />
             </div>
 
             {/* Mobile Navigation Links */}
