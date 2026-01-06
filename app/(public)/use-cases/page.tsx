@@ -3,6 +3,10 @@ import { getPublishedEntities, searchEntities } from "@/lib/supabase/queries";
 import { EntityCard } from "@/components/entities/EntityCard";
 import { EmptyState } from "@/components/entities/EmptyState";
 import { FilterBadge } from "@/components/entities/FilterBadge";
+import { isAdmin } from "@/lib/auth/isAdmin";
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
+import { Upload } from "lucide-react";
 
 interface UseCasesPageProps {
   searchParams: Promise<{
@@ -18,6 +22,7 @@ export default async function UseCasesPage({
 }: UseCasesPageProps) {
   const params = await searchParams;
   const supabase = await createClient();
+  const userIsAdmin = await isAdmin();
 
   let useCases;
   const activeFilters: Array<{ label: string; value: string; key: string }> =
@@ -96,11 +101,21 @@ export default async function UseCasesPage({
   return (
     <div className="container mx-auto px-4 py-12">
       {/* Header */}
-      <div className="mb-8">
-        <h1 className="text-4xl font-bold mb-2">Use Cases</h1>
-        <p className="text-muted-foreground">
-          Discover AI applications in the beauty industry
-        </p>
+      <div className="mb-8 flex items-start justify-between">
+        <div>
+          <h1 className="text-4xl font-bold mb-2">Use Cases</h1>
+          <p className="text-muted-foreground">
+            Discover AI applications in the beauty industry
+          </p>
+        </div>
+        {userIsAdmin && (
+          <Button asChild variant="outline" size="sm">
+            <Link href="/admin/use-cases/upload">
+              <Upload className="mr-2 h-4 w-4" />
+              Upload Use Cases
+            </Link>
+          </Button>
+        )}
       </div>
 
       {/* Active Filters & Count */}

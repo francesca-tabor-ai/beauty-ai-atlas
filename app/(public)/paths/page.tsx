@@ -4,6 +4,9 @@ import { EntityCard } from "@/components/entities/EntityCard";
 import { EmptyState } from "@/components/entities/EmptyState";
 import { FilterBadge } from "@/components/entities/FilterBadge";
 import { Badge } from "@/components/ui/badge";
+import { isAdmin } from "@/lib/auth/isAdmin";
+import { Button } from "@/components/ui/button";
+import { Upload } from "lucide-react";
 import Link from "next/link";
 
 interface PathsPageProps {
@@ -17,6 +20,7 @@ interface PathsPageProps {
 export default async function PathsPage({ searchParams }: PathsPageProps) {
   const params = await searchParams;
   const supabase = await createClient();
+  const userIsAdmin = await isAdmin();
 
   let learningPaths;
   const activeFilters: Array<{ label: string; value: string; key: string }> =
@@ -98,11 +102,21 @@ export default async function PathsPage({ searchParams }: PathsPageProps) {
   return (
     <div className="container mx-auto px-4 py-12">
       {/* Header */}
-      <div className="mb-8">
-        <h1 className="text-4xl font-bold mb-2">Learning Paths</h1>
-        <p className="text-muted-foreground">
-          Follow structured learning paths to master beauty AI
-        </p>
+      <div className="mb-8 flex items-start justify-between">
+        <div>
+          <h1 className="text-4xl font-bold mb-2">Learning Paths</h1>
+          <p className="text-muted-foreground">
+            Follow structured learning paths to master beauty AI
+          </p>
+        </div>
+        {userIsAdmin && (
+          <Button asChild variant="outline" size="sm">
+            <Link href="/admin/paths/upload">
+              <Upload className="mr-2 h-4 w-4" />
+              Upload Learning Paths
+            </Link>
+          </Button>
+        )}
       </div>
 
       {/* Active Filters & Count */}

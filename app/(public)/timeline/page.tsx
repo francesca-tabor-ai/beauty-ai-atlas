@@ -4,9 +4,14 @@ import { RelatedContent } from "@/components/graph/RelatedContent";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { EmptyState } from "@/components/entities/EmptyState";
+import { isAdmin } from "@/lib/auth/isAdmin";
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
+import { Upload } from "lucide-react";
 
 export default async function TimelinePage() {
   const supabase = await createClient();
+  const userIsAdmin = await isAdmin();
 
   // Fetch all published timeline events ordered by year DESC, month DESC
   const events = await getPublishedEntities(supabase, "timeline_events", {
@@ -96,11 +101,21 @@ export default async function TimelinePage() {
   return (
     <div className="container mx-auto px-4 py-12">
       {/* Header */}
-      <div className="mb-12">
-        <h1 className="text-4xl font-bold mb-2">Timeline</h1>
-        <p className="text-muted-foreground text-lg">
-          Evolution of AI in Beauty — Key events and milestones
-        </p>
+      <div className="mb-12 flex items-start justify-between">
+        <div>
+          <h1 className="text-4xl font-bold mb-2">Timeline</h1>
+          <p className="text-muted-foreground text-lg">
+            Evolution of AI in Beauty — Key events and milestones
+          </p>
+        </div>
+        {userIsAdmin && (
+          <Button asChild variant="outline" size="sm">
+            <Link href="/admin/timeline/upload">
+              <Upload className="mr-2 h-4 w-4" />
+              Upload Timeline Events
+            </Link>
+          </Button>
+        )}
       </div>
 
       {/* Timeline */}
