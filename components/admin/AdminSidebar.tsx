@@ -9,7 +9,7 @@ import { cn } from "@/lib/utils";
 
 const adminNavLinks = [
   { href: "/admin", label: "Dashboard", icon: LayoutDashboard },
-  { href: "/admin/upload-data", label: "Upload Data", icon: Upload },
+  { href: "/upload-data", label: "Upload Data", icon: Upload },
   { href: "/admin/brands", label: "Brands" },
   { href: "/admin/use-cases", label: "Use Cases" },
   { href: "/admin/ai", label: "AI Specialisms" },
