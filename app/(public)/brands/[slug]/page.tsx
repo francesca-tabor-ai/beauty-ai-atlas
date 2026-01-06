@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { getEntityBySlug } from "@/lib/supabase/queries";
 import { EntityHeader } from "@/components/entities/EntityHeader";
+import { RelatedContent } from "@/components/graph/RelatedContent";
 import type { Metadata } from "next";
 
 interface BrandPageProps {
@@ -108,12 +109,9 @@ export default async function BrandPage({ params }: BrandPageProps) {
           </div>
         )}
 
-        {/* Placeholder for Related Content */}
+        {/* Related Content */}
         <div className="mt-12 pt-8 border-t">
-          <h2 className="text-2xl font-semibold mb-4">Related Content</h2>
-          <p className="text-muted-foreground">
-            Related brands, projects, and use cases will appear here.
-          </p>
+          <RelatedContent entityType="brands" entityId={brand.id} />
         </div>
       </article>
     </div>
