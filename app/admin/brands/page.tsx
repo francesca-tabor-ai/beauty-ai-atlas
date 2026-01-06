@@ -33,12 +33,20 @@ export default async function AdminBrandsPage() {
             Manage all brands ({brands?.length || 0} total)
           </p>
         </div>
-        <Button asChild>
-          <Link href="/admin/brands/create">
-            <Plus className="mr-2 h-4 w-4" />
-            Create New
-          </Link>
-        </Button>
+        <div className="flex gap-2">
+          <Button asChild variant="outline">
+            <Link href="/admin/brands/upload">
+              <Plus className="mr-2 h-4 w-4" />
+              Upload
+            </Link>
+          </Button>
+          <Button asChild>
+            <Link href="/admin/brands/create">
+              <Plus className="mr-2 h-4 w-4" />
+              Create New
+            </Link>
+          </Button>
+        </div>
       </div>
 
       {/* Table */}

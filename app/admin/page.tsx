@@ -73,6 +73,12 @@ export default async function AdminDashboard() {
                   <Button asChild variant="outline" size="sm" className="flex-1">
                     <Link href={entity.href}>View All</Link>
                   </Button>
+                  <Button asChild variant="outline" size="sm" className="flex-1">
+                    <Link href={`${entity.href}/upload`}>
+                      <Plus className="mr-1 h-4 w-4" />
+                      Upload
+                    </Link>
+                  </Button>
                   <Button asChild size="sm" className="flex-1">
                     <Link href={`${entity.href}/new`}>
                       <Plus className="mr-1 h-4 w-4" />
