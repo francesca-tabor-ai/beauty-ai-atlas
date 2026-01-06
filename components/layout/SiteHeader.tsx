@@ -2,8 +2,9 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useTheme } from "next-themes";
-import { Menu, X, Sun, Moon } from "lucide-react";
+import { Menu, X, Sun, Moon, LogIn, LogOut } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { createClient } from "@/lib/supabase/client";
 import { SearchDropdown } from "@/components/search/SearchDropdown";
@@ -21,14 +22,16 @@ const navLinks = [
 ];
 
 export function SiteHeader() {
+  const router = useRouter();
   const [mounted, setMounted] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
   const { theme, setTheme } = useTheme();
 
-  // Check if user is admin
+  // Check if user is authenticated and admin
   useEffect(() => {
-    const checkAdmin = async () => {
+    const checkAuth = async () => {
       try {
         const supabase = createClient();
         const {
@@ -36,17 +39,34 @@ export function SiteHeader() {
         } = await supabase.auth.getUser();
 
         if (user) {
+          setIsAuthenticated(true);
           // Check app_metadata for admin role
-          const role = user.app_metadata?.role;
+          const role = user.app_metadata?.role || user.user_metadata?.role;
           setIsAdmin(role === "admin");
+        } else {
+          setIsAuthenticated(false);
+          setIsAdmin(false);
         }
       } catch (_error) {
         // Silently fail - user is not authenticated or error occurred
+        setIsAuthenticated(false);
         setIsAdmin(false);
       }
     };
 
-    checkAdmin();
+    checkAuth();
+
+    // Listen for auth state changes
+    const supabase = createClient();
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange(() => {
+      checkAuth();
+    });
+
+    return () => {
+      subscription.unsubscribe();
+    };
   }, []);
 
   useEffect(() => {
@@ -120,11 +140,38 @@ export function SiteHeader() {
             </Button>
           )}
 
-          {/* Admin Link */}
-          {isAdmin && (
-            <Link href="/admin">
+          {/* Auth Links */}
+          {isAuthenticated ? (
+            <>
+              {isAdmin && (
+                <Link href="/admin">
+                  <Button variant="ghost" size="sm" className="hidden md:flex">
+                    Admin
+                  </Button>
+                </Link>
+              )}
+              <Button
+                variant="ghost"
+                size="sm"
+                className="hidden md:flex"
+                onClick={async () => {
+                  const supabase = createClient();
+                  await supabase.auth.signOut();
+                  setIsAuthenticated(false);
+                  setIsAdmin(false);
+                  router.push("/");
+                  router.refresh();
+                }}
+              >
+                <LogOut className="mr-2 h-4 w-4" />
+                Sign Out
+              </Button>
+            </>
+          ) : (
+            <Link href="/login">
               <Button variant="ghost" size="sm" className="hidden md:flex">
-                Admin
+                <LogIn className="mr-2 h-4 w-4" />
+                Sign In
               </Button>
             </Link>
           )}
@@ -185,13 +232,41 @@ export function SiteHeader() {
                   {link.label}
                 </Link>
               ))}
-              {isAdmin && (
+              {isAuthenticated ? (
+                <>
+                  {isAdmin && (
+                    <Link
+                      href="/admin"
+                      className="px-3 py-2 text-sm font-medium text-muted-foreground transition-colors duration-150 hover:text-accent hover:bg-accent/10 rounded-md focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background focus-visible:outline-none motion-reduce:transition-none"
+                      onClick={() => setMobileMenuOpen(false)}
+                    >
+                      Admin
+                    </Link>
+                  )}
+                  <button
+                    className="px-3 py-2 text-sm font-medium text-muted-foreground transition-colors duration-150 hover:text-accent hover:bg-accent/10 rounded-md focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background focus-visible:outline-none motion-reduce:transition-none w-full text-left"
+                    onClick={async () => {
+                      const supabase = createClient();
+                      await supabase.auth.signOut();
+                      setIsAuthenticated(false);
+                      setIsAdmin(false);
+                      setMobileMenuOpen(false);
+                      router.push("/");
+                      router.refresh();
+                    }}
+                  >
+                    <LogOut className="inline mr-2 h-4 w-4" />
+                    Sign Out
+                  </button>
+                </>
+              ) : (
                 <Link
-                  href="/admin"
-                  className="px-3 py-2 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground hover:bg-accent rounded-md"
+                  href="/login"
+                  className="px-3 py-2 text-sm font-medium text-muted-foreground transition-colors duration-150 hover:text-accent hover:bg-accent/10 rounded-md focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background focus-visible:outline-none motion-reduce:transition-none"
                   onClick={() => setMobileMenuOpen(false)}
                 >
-                  Admin
+                  <LogIn className="inline mr-2 h-4 w-4" />
+                  Sign In
                 </Link>
               )}
             </nav>
