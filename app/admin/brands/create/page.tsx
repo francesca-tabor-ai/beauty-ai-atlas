@@ -1,4 +1,4 @@
-import { createBrand, generateSlug } from "../actions";
+import { createBrand } from "../actions";
 import { BrandForm } from "../brand-form";
 
 export default function CreateBrandPage() {

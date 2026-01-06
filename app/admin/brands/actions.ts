@@ -3,6 +3,7 @@
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { createAdminClient } from "@/lib/supabase/server";
+import { generateSlug } from "@/lib/slug";
 import { z } from "zod";
 
 // Zod schema for brand validation
@@ -20,16 +21,6 @@ const brandSchema = z.object({
 });
 
 export type BrandFormData = z.infer<typeof brandSchema>;
-
-// Helper function to generate slug from name
-export function generateSlug(name: string): string {
-  return name
-    .toLowerCase()
-    .trim()
-    .replace(/[^\w\s-]/g, "") // Remove special characters
-    .replace(/[\s_-]+/g, "-") // Replace spaces and underscores with hyphens
-    .replace(/^-+|-+$/g, ""); // Remove leading/trailing hyphens
-}
 
 export async function createBrand(formData: FormData) {
   const supabase = createAdminClient();
