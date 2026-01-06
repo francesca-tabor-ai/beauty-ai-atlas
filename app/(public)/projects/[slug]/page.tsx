@@ -94,12 +94,14 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
 
         {/* Action Buttons */}
         <div className="mt-8 flex flex-wrap gap-4">
-          <Button variant="outline" asChild>
-            <a href="#" onClick={(e) => e.preventDefault()}>
-              <Download className="mr-2 h-4 w-4" />
-              Download PRD
-            </a>
-          </Button>
+          {project.prd && Object.keys(project.prd).length > 0 && (
+            <Button variant="outline" asChild>
+              <a href={`/api/export/prd/${project.slug}`} download>
+                <Download className="mr-2 h-4 w-4" />
+                Download PRD
+              </a>
+            </Button>
+          )}
           {project.business_case && (
             <Button variant="outline" asChild>
               <Link href={`/projects/${slug}/playground`}>

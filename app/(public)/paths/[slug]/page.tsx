@@ -4,7 +4,9 @@ import { getEntityBySlug } from "@/lib/supabase/queries";
 import { EntityHeader } from "@/components/entities/EntityHeader";
 import { RelatedContent } from "@/components/graph/RelatedContent";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import { Download } from "lucide-react";
 import Link from "next/link";
 import type { Metadata } from "next";
 import type { EntityType } from "@/lib/supabase/types";
@@ -130,6 +132,18 @@ export default async function LearningPathPage({
         {path.description && (
           <div className="prose prose-slate dark:prose-invert max-w-none mt-8">
             <p className="text-lg leading-relaxed">{path.description}</p>
+          </div>
+        )}
+
+        {/* Export Button */}
+        {steps.length > 0 && (
+          <div className="mt-8">
+            <Button variant="outline" asChild>
+              <a href={`/api/export/path/${path.slug}`} download>
+                <Download className="mr-2 h-4 w-4" />
+                Export Learning Path
+              </a>
+            </Button>
           </div>
         )}
 
