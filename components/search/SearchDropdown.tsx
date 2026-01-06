@@ -178,7 +178,7 @@ export function SearchDropdown() {
                       key={item.id}
                       href={`${entityUrlMap[entityType]}/${item.slug}`}
                       onClick={() => handleResultClick(entityType, item.slug)}
-                      className="block px-2 py-2 hover:bg-accent rounded-md transition-colors duration-150 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background focus-visible:outline-none motion-reduce:transition-none"
+                      className="block px-2 py-2 hover:bg-accent/15 hover:text-accent rounded-md transition-colors duration-150 focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background focus-visible:outline-none motion-reduce:transition-none"
                     >
                       <div className="text-sm font-medium">{item.title}</div>
                       <div className="text-xs text-muted-foreground font-mono">

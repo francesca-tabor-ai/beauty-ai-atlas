@@ -84,7 +84,7 @@ export async function RelatedContent({
               >
                 <Badge
                   variant="secondary"
-                  className="cursor-pointer hover:bg-primary hover:text-primary-foreground transition-colors"
+                  className="cursor-pointer hover:bg-accent hover:text-accent-foreground transition-colors duration-150"
                   title={`${relationTypeLabels[brand.relation] || brand.relation}${
                     brand.relationStrength
                       ? ` (strength: ${brand.relationStrength})`
@@ -114,7 +114,7 @@ export async function RelatedContent({
               >
                 <Badge
                   variant="secondary"
-                  className="cursor-pointer hover:bg-primary hover:text-primary-foreground transition-colors"
+                  className="cursor-pointer hover:bg-accent hover:text-accent-foreground transition-colors duration-150"
                   title={`${relationTypeLabels[useCase.relation] || useCase.relation}${
                     useCase.relationStrength
                       ? ` (strength: ${useCase.relationStrength})`
@@ -144,7 +144,7 @@ export async function RelatedContent({
               >
                 <Badge
                   variant="secondary"
-                  className="cursor-pointer hover:bg-primary hover:text-primary-foreground transition-colors"
+                  className="cursor-pointer hover:bg-accent hover:text-accent-foreground transition-colors duration-150"
                   title={`${relationTypeLabels[ai.relation] || ai.relation}${
                     ai.relationStrength
                       ? ` (strength: ${ai.relationStrength})`
@@ -174,7 +174,7 @@ export async function RelatedContent({
               >
                 <Badge
                   variant="secondary"
-                  className="cursor-pointer hover:bg-primary hover:text-primary-foreground transition-colors"
+                  className="cursor-pointer hover:bg-accent hover:text-accent-foreground transition-colors duration-150"
                   title={`${relationTypeLabels[job.relation] || job.relation}${
                     job.relationStrength
                       ? ` (strength: ${job.relationStrength})`
@@ -204,7 +204,7 @@ export async function RelatedContent({
               >
                 <Badge
                   variant="secondary"
-                  className="cursor-pointer hover:bg-primary hover:text-primary-foreground transition-colors"
+                  className="cursor-pointer hover:bg-accent hover:text-accent-foreground transition-colors duration-150"
                   title={`${relationTypeLabels[project.relation] || project.relation}${
                     project.relationStrength
                       ? ` (strength: ${project.relationStrength})`
@@ -234,7 +234,7 @@ export async function RelatedContent({
               >
                 <Badge
                   variant="secondary"
-                  className="cursor-pointer hover:bg-primary hover:text-primary-foreground transition-colors"
+                  className="cursor-pointer hover:bg-accent hover:text-accent-foreground transition-colors duration-150"
                   title={`${relationTypeLabels[event.relation] || event.relation}${
                     event.relationStrength
                       ? ` (strength: ${event.relationStrength})`
@@ -264,7 +264,7 @@ export async function RelatedContent({
               >
                 <Badge
                   variant="secondary"
-                  className="cursor-pointer hover:bg-primary hover:text-primary-foreground transition-colors"
+                  className="cursor-pointer hover:bg-accent hover:text-accent-foreground transition-colors duration-150"
                   title={`${relationTypeLabels[path.relation] || path.relation}${
                     path.relationStrength
                       ? ` (strength: ${path.relationStrength})`

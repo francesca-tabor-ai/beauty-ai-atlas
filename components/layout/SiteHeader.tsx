@@ -77,7 +77,7 @@ export function SiteHeader() {
             <Link
               key={link.href}
               href={link.href}
-              className="text-sm font-medium text-muted-foreground transition-colors duration-150 hover:text-foreground underline-offset-4 hover:underline focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background focus-visible:outline-none rounded-sm motion-reduce:transition-none"
+              className="text-sm font-medium text-muted-foreground transition-colors duration-150 hover:text-accent underline-offset-4 hover:underline focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background focus-visible:outline-none rounded-sm motion-reduce:transition-none"
             >
               {link.label}
             </Link>
@@ -178,7 +178,7 @@ export function SiteHeader() {
                 <Link
                   key={link.href}
                   href={link.href}
-                  className="px-3 py-2 text-sm font-medium text-muted-foreground transition-colors duration-150 hover:text-foreground hover:bg-accent rounded-md focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background focus-visible:outline-none motion-reduce:transition-none"
+                  className="px-3 py-2 text-sm font-medium text-muted-foreground transition-colors duration-150 hover:text-accent hover:bg-accent/15 rounded-md focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background focus-visible:outline-none motion-reduce:transition-none"
                   onClick={() => setMobileMenuOpen(false)}
                 >
                   {link.label}

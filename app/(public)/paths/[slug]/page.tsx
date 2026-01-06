@@ -157,7 +157,7 @@ export default async function LearningPathPage({
                 return (
                   <Card
                     key={index}
-                    className="hover:border-primary transition-colors group"
+                    className="hover:border-accent transition-colors group"
                   >
                     <CardContent className="p-6">
                       <Link href={stepUrl} className="block">
@@ -169,7 +169,7 @@ export default async function LearningPathPage({
 
                           {/* Step Content */}
                           <div className="flex-1">
-                            <h3 className="text-lg font-semibold mb-2 group-hover:text-primary transition-colors">
+                            <h3 className="text-lg font-semibold mb-2 group-hover:text-accent transition-colors duration-150">
                               {step.label}
                             </h3>
                             <div className="text-sm text-muted-foreground">
