@@ -81,7 +81,7 @@ export interface AISpecialism {
     | "recommendation_systems"
     | "generative_ai"
     | null;
-  maturity_timeline: Record<string, string>;
+  maturity_timeline: Record<string, string> | Array<{ year: number; stage: string }> | null;
   tags: string[];
   published: boolean;
   created_at: string;

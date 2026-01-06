@@ -45,15 +45,50 @@ export default async function AIPage({ params }: AIPageProps) {
   }
 
   // Sort maturity timeline by year
-  const timelineEntries =
-    ai.maturity_timeline && Object.keys(ai.maturity_timeline).length > 0
-      ? Object.entries(ai.maturity_timeline)
-          .map(([year, status]) => ({
-            year: parseInt(year, 10),
-            status: status as string,
-          }))
-          .sort((a, b) => a.year - b.year)
-      : [];
+  // Handle both object format {year: status} and array format [{year, stage}]
+  let timelineEntries: Array<{ year: number; status: string }> = [];
+  
+  if (ai.maturity_timeline) {
+    try {
+      // If it's an object with year keys (e.g., {"2020": "research", "2022": "pilot"})
+      if (typeof ai.maturity_timeline === "object" && !Array.isArray(ai.maturity_timeline)) {
+        const entries = Object.entries(ai.maturity_timeline);
+        if (entries.length > 0) {
+          timelineEntries = entries
+            .map(([year, status]: [string, unknown]) => {
+              const yearNum = parseInt(year, 10);
+              if (isNaN(yearNum)) return null;
+              return {
+                year: yearNum,
+                status: typeof status === "string" ? status : (status as { stage?: string })?.stage || String(status),
+              };
+            })
+            .filter((entry: { year: number; status: string } | null): entry is { year: number; status: string } => entry !== null)
+            .sort((a: { year: number; status: string }, b: { year: number; status: string }) => a.year - b.year);
+        }
+      }
+      // If it's an array format [{year, stage}] (e.g., [{"year": 2010, "stage": "feature-based"}])
+      else if (Array.isArray(ai.maturity_timeline)) {
+        timelineEntries = ai.maturity_timeline
+          .map((entry: unknown) => {
+            if (typeof entry === "object" && entry !== null) {
+              const entryObj = entry as { year?: number | string; stage?: string; status?: string };
+              const year = typeof entryObj.year === "number" ? entryObj.year : parseInt(String(entryObj.year || ""), 10);
+              const status = entryObj.stage || entryObj.status || String(entry);
+              if (!isNaN(year)) {
+                return { year, status: String(status) };
+              }
+            }
+            return null;
+          })
+          .filter((entry: { year: number; status: string } | null): entry is { year: number; status: string } => entry !== null)
+          .sort((a: { year: number; status: string }, b: { year: number; status: string }) => a.year - b.year);
+      }
+    } catch (error) {
+      console.error("Error parsing maturity_timeline:", error);
+      timelineEntries = [];
+    }
+  }
 
   return (
     <div className="container mx-auto px-4 py-12">
