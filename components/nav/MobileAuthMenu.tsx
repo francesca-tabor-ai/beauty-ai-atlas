@@ -26,7 +26,7 @@ export function MobileAuthMenu({ onLinkClick }: MobileAuthMenuProps) {
 
         if (user) {
           setIsAuthenticated(true);
-          setUserEmail(user.email);
+          setUserEmail(user.email ?? null);
           const role =
             (user.user_metadata?.role as string | undefined) ??
             (user.app_metadata?.role as string | undefined);
