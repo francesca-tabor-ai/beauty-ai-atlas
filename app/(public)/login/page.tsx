@@ -1,7 +1,7 @@
 "use client";
 
-import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { useState, useEffect } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/client";
 import { Button } from "@/components/ui/button";
@@ -13,6 +13,7 @@ import { Loader2, AlertCircle } from "lucide-react";
 
 export default function LoginPage() {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
@@ -40,13 +41,16 @@ export default function LoginPage() {
         // Check if user is admin
         const role = data.user.app_metadata?.role || data.user.user_metadata?.role;
         
+        // Check for next parameter
+        const nextUrl = searchParams.get("next");
+        
         if (role === "admin") {
-          // Redirect to admin dashboard
-          router.push("/admin");
+          // Redirect to next URL if provided, otherwise admin dashboard
+          router.push(nextUrl || "/admin");
           router.refresh();
         } else {
-          // Regular user - redirect to home
-          router.push("/");
+          // Regular user - redirect to home or next URL
+          router.push(nextUrl || "/");
           router.refresh();
         }
       }

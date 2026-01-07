@@ -1,6 +1,13 @@
+"use client";
+
+import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Upload, ArrowRight } from "lucide-react";
+import { Upload, ArrowRight, AlertCircle } from "lucide-react";
+import { Alert, AlertDescription } from "@/components/ui/alert";
+import { createClient } from "@/lib/supabase/client";
+import { Button } from "@/components/ui/button";
 
 const uploadLinks = [
   {
@@ -36,6 +43,58 @@ const uploadLinks = [
 ];
 
 export default function UploadDataPage() {
+  const router = useRouter();
+  const [isAdmin, setIsAdmin] = useState<boolean | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const checkAuth = async () => {
+      try {
+        const supabase = createClient();
+        const {
+          data: { user },
+        } = await supabase.auth.getUser();
+
+        if (user) {
+          const role =
+            (user.user_metadata?.role as string | undefined) ??
+            (user.app_metadata?.role as string | undefined);
+          setIsAdmin(role === "admin");
+        } else {
+          setIsAdmin(false);
+        }
+      } catch {
+        setIsAdmin(false);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    checkAuth();
+  }, []);
+
+  const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    if (!isAdmin) {
+      e.preventDefault();
+      // Redirect to login with return URL
+      router.push(`/login?next=${encodeURIComponent(href)}`);
+      return;
+    }
+    // If admin, let the link navigate normally
+  };
+
+  if (isLoading) {
+    return (
+      <div className="container mx-auto px-4 py-12">
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center py-12">
+            <p className="text-muted-foreground">Loading...</p>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="container mx-auto px-4 py-12">
       <div className="max-w-6xl mx-auto space-y-6">
@@ -45,9 +104,18 @@ export default function UploadDataPage() {
           <p className="text-muted-foreground mt-2">
             Bulk import entities from JSON or CSV files. Each upload form supports automatic slug generation, data validation, and idempotent upserts.
           </p>
-          <p className="text-sm text-muted-foreground mt-2">
-            <strong>Note:</strong> Upload forms require admin authentication. If you&apos;re not an admin, you&apos;ll be redirected to the home page when accessing upload forms.
-          </p>
+          {!isAdmin && (
+            <Alert className="mt-4">
+              <AlertCircle className="h-4 w-4" />
+              <AlertDescription>
+                <strong>Admin access required.</strong> Please{" "}
+                <Link href="/login" className="underline hover:text-foreground">
+                  sign in as an admin
+                </Link>{" "}
+                to access upload forms.
+              </AlertDescription>
+            </Alert>
+          )}
         </div>
 
         {/* Upload Links Grid */}
@@ -56,7 +124,12 @@ export default function UploadDataPage() {
             <Link
               key={link.href}
               href={link.href}
-              className="block rounded-lg border bg-card text-card-foreground shadow-sm hover:border-accent hover:bg-accent/5 transition-all duration-150"
+              onClick={(e) => handleLinkClick(e, link.href)}
+              className={`block rounded-lg border bg-card text-card-foreground shadow-sm transition-all duration-150 ${
+                isAdmin
+                  ? "hover:border-accent hover:bg-accent/5 cursor-pointer"
+                  : "opacity-60 cursor-not-allowed"
+              }`}
             >
               <div className="p-6">
                 <div className="flex items-center gap-2 mb-2">
@@ -64,7 +137,13 @@ export default function UploadDataPage() {
                   <h3 className="text-lg font-semibold">{link.label}</h3>
                 </div>
                 <p className="text-sm text-muted-foreground mb-4">{link.description}</p>
-                <div className="inline-flex items-center justify-center rounded-md bg-primary text-primary-foreground px-4 py-2 text-sm font-medium hover:bg-primary/90 transition-colors">
+                <div
+                  className={`inline-flex items-center justify-center rounded-md px-4 py-2 text-sm font-medium transition-colors ${
+                    isAdmin
+                      ? "bg-primary text-primary-foreground hover:bg-primary/90"
+                      : "bg-muted text-muted-foreground"
+                  }`}
+                >
                   Upload
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </div>
@@ -112,4 +191,3 @@ export default function UploadDataPage() {
     </div>
   );
 }
-
