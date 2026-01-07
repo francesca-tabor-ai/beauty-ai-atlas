@@ -54,7 +54,12 @@ export function AuthNavClient() {
   }
 
   if (user) {
-    return <LoggedInMenu userEmail={user.email} isAdmin={user.isAdmin} />;
+    return (
+      <LoggedInMenu
+        userEmail={user.email ?? "Account"}
+        isAdmin={user.isAdmin}
+      />
+    );
   }
 
   return <LoggedOutMenu />;
