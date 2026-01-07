@@ -5,6 +5,8 @@ import { cn } from "@/lib/utils";
 
 interface DropdownMenuProps {
   children: React.ReactNode;
+  open?: boolean;
+  onOpenChange?: (open: boolean) => void;
 }
 
 interface DropdownMenuContextValue {
@@ -16,12 +18,37 @@ const DropdownMenuContext = React.createContext<
   DropdownMenuContextValue | undefined
 >(undefined);
 
-const DropdownMenu = ({ children }: DropdownMenuProps) => {
-  const [open, setOpen] = React.useState(false);
+const DropdownMenu = ({ children, open: controlledOpen, onOpenChange }: DropdownMenuProps) => {
+  const [internalOpen, setInternalOpen] = React.useState(false);
+  const containerRef = React.useRef<HTMLDivElement>(null);
+  const open = controlledOpen !== undefined ? controlledOpen : internalOpen;
+  const setOpen = (newOpen: boolean) => {
+    if (controlledOpen === undefined) {
+      setInternalOpen(newOpen);
+    }
+    onOpenChange?.(newOpen);
+  };
+
+  // Close dropdown when clicking outside
+  React.useEffect(() => {
+    if (!open) return;
+
+    const handleClickOutside = (event: MouseEvent) => {
+      if (containerRef.current && !containerRef.current.contains(event.target as Node)) {
+        if (controlledOpen === undefined) {
+          setInternalOpen(false);
+        }
+        onOpenChange?.(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [open, controlledOpen, onOpenChange]);
 
   return (
     <DropdownMenuContext.Provider value={{ open, setOpen }}>
-      <div className="relative">{children}</div>
+      <div className="relative" ref={containerRef}>{children}</div>
     </DropdownMenuContext.Provider>
   );
 };
@@ -49,8 +76,8 @@ DropdownMenuTrigger.displayName = "DropdownMenuTrigger";
 
 const DropdownMenuContent = React.forwardRef<
   HTMLDivElement,
-  React.HTMLAttributes<HTMLDivElement>
->(({ className, ...props }, ref) => {
+  React.HTMLAttributes<HTMLDivElement> & { align?: "start" | "end" | "center" }
+>(({ className, align = "end", ...props }, ref) => {
   const context = React.useContext(DropdownMenuContext);
   if (!context) throw new Error("DropdownMenuContent must be used within DropdownMenu");
 
@@ -60,7 +87,10 @@ const DropdownMenuContent = React.forwardRef<
     <div
       ref={ref}
       className={cn(
-        "absolute right-0 top-full z-50 mt-2 min-w-[8rem] overflow-hidden rounded-md border bg-popover p-1 text-popover-foreground shadow-md",
+        "absolute top-full z-50 mt-2 min-w-[8rem] overflow-hidden rounded-md border bg-popover p-1 text-popover-foreground shadow-md",
+        align === "end" && "right-0",
+        align === "start" && "left-0",
+        align === "center" && "left-1/2 -translate-x-1/2",
         className
       )}
       {...props}
@@ -85,10 +115,23 @@ const DropdownMenuItem = React.forwardRef<
 ));
 DropdownMenuItem.displayName = "DropdownMenuItem";
 
+const DropdownMenuSeparator = React.forwardRef<
+  HTMLDivElement,
+  React.HTMLAttributes<HTMLDivElement>
+>(({ className, ...props }, ref) => (
+  <div
+    ref={ref}
+    className={cn("my-1 h-px bg-border", className)}
+    {...props}
+  />
+));
+DropdownMenuSeparator.displayName = "DropdownMenuSeparator";
+
 export {
   DropdownMenu,
   DropdownMenuTrigger,
   DropdownMenuContent,
   DropdownMenuItem,
+  DropdownMenuSeparator,
 };
 
