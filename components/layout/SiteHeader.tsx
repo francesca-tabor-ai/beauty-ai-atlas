@@ -19,7 +19,6 @@ const navLinks = [
   { href: "/projects", label: "Projects" },
   { href: "/timeline", label: "Timeline" },
   { href: "/paths", label: "Paths" },
-  { href: "/upload-data", label: "Upload Data" },
 ];
 
 export function SiteHeader() {
