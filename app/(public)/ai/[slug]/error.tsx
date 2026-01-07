@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
+import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { AlertCircle } from "lucide-react";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
@@ -32,7 +33,7 @@ export default function Error({
             Try Again
           </Button>
           <Button asChild variant="outline">
-            <a href="/ai">Back to AI Specialisms</a>
+            <Link href="/ai">Back to AI Specialisms</Link>
           </Button>
         </div>
       </div>

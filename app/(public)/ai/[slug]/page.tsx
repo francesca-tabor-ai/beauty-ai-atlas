@@ -52,6 +52,24 @@ export default async function AIPage({ params }: AIPageProps) {
       notFound();
     }
 
+    // Helper function to safely render any value (prevents object rendering crashes)
+    const renderValue = (value: unknown): string => {
+      if (value == null) return "";
+      if (typeof value === "string" || typeof value === "number" || typeof value === "boolean") {
+        return String(value);
+      }
+      if (Array.isArray(value)) {
+        // If it's an array of primitives
+        if (value.every((v) => ["string", "number", "boolean"].includes(typeof v))) {
+          return value.join(", ");
+        }
+        // Otherwise JSON it
+        return JSON.stringify(value, null, 2);
+      }
+      // object
+      return JSON.stringify(value, null, 2);
+    };
+
     // Sort maturity timeline by year
     // Handle both object format {year: status} and array format [{year, stage}]
     let timelineEntries: Array<{ year: number; status: string }> = [];
@@ -59,16 +77,29 @@ export default async function AIPage({ params }: AIPageProps) {
     if (ai.maturity_timeline) {
       try {
         // If it's an object with year keys (e.g., {"2020": "research", "2022": "pilot"})
-        if (typeof ai.maturity_timeline === "object" && !Array.isArray(ai.maturity_timeline)) {
+        if (typeof ai.maturity_timeline === "object" && !Array.isArray(ai.maturity_timeline) && ai.maturity_timeline !== null) {
           const entries = Object.entries(ai.maturity_timeline);
           if (entries.length > 0) {
             timelineEntries = entries
               .map(([year, status]: [string, unknown]) => {
                 const yearNum = parseInt(year, 10);
                 if (isNaN(yearNum)) return null;
+                
+                // Safely extract status string from various formats
+                let statusStr = "";
+                if (typeof status === "string") {
+                  statusStr = status;
+                } else if (typeof status === "object" && status !== null) {
+                  // Handle nested objects like {year, stage} or {stage: "..."}
+                  const statusObj = status as { stage?: string; status?: string; year?: unknown };
+                  statusStr = statusObj.stage || statusObj.status || renderValue(status);
+                } else {
+                  statusStr = renderValue(status);
+                }
+                
                 return {
                   year: yearNum,
-                  status: typeof status === "string" ? status : (status as { stage?: string })?.stage || String(status),
+                  status: statusStr,
                 };
               })
               .filter((entry: { year: number; status: string } | null): entry is { year: number; status: string } => entry !== null)
@@ -82,9 +113,20 @@ export default async function AIPage({ params }: AIPageProps) {
               if (typeof entry === "object" && entry !== null) {
                 const entryObj = entry as { year?: number | string; stage?: string; status?: string };
                 const year = typeof entryObj.year === "number" ? entryObj.year : parseInt(String(entryObj.year || ""), 10);
-                const status = entryObj.stage || entryObj.status || String(entry);
-                if (!isNaN(year)) {
-                  return { year, status: String(status) };
+                
+                // Safely extract status string
+                let statusStr = "";
+                if (entryObj.stage) {
+                  statusStr = String(entryObj.stage);
+                } else if (entryObj.status) {
+                  statusStr = String(entryObj.status);
+                } else {
+                  // Fallback: use renderValue to safely convert the entire entry
+                  statusStr = renderValue(entry);
+                }
+                
+                if (!isNaN(year) && statusStr) {
+                  return { year, status: statusStr };
                 }
               }
               return null;
