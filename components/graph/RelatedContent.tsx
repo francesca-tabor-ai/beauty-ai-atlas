@@ -47,23 +47,24 @@ export async function RelatedContent({
   entityType,
   entityId,
 }: RelatedContentProps) {
-  const supabase = await createClient();
-  const related = await getRelatedEntities(supabase, entityType, entityId);
+  try {
+    const supabase = await createClient();
+    const related = await getRelatedEntities(supabase, entityType, entityId);
 
-  // Count total related entities
-  const totalRelated =
-    related.brands.length +
-    related.use_cases.length +
-    related.ai_specialisms.length +
-    related.job_roles.length +
-    related.projects.length +
-    related.timeline_events.length +
-    related.learning_paths.length;
+    // Count total related entities
+    const totalRelated =
+      related.brands.length +
+      related.use_cases.length +
+      related.ai_specialisms.length +
+      related.job_roles.length +
+      related.projects.length +
+      related.timeline_events.length +
+      related.learning_paths.length;
 
-  // If no related content, return null
-  if (totalRelated === 0) {
-    return null;
-  }
+    // If no related content, return null
+    if (totalRelated === 0) {
+      return null;
+    }
 
   return (
     <div className="space-y-8">
@@ -279,6 +280,11 @@ export async function RelatedContent({
         </section>
       )}
     </div>
-  );
+    );
+  } catch (error) {
+    // Log error but don't crash the page - just don't show related content
+    console.error("Error loading related content:", error);
+    return null;
+  }
 }
 

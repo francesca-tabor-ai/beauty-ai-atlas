@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
 import { Upload, ArrowRight } from "lucide-react";
 
 const uploadLinks = [
@@ -54,23 +53,23 @@ export default function UploadDataPage() {
         {/* Upload Links Grid */}
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
           {uploadLinks.map((link) => (
-            <Card key={link.href} className="hover:border-accent transition-colors duration-150">
-              <CardHeader>
-                <CardTitle className="text-lg flex items-center gap-2">
+            <Link
+              key={link.href}
+              href={link.href}
+              className="block rounded-lg border bg-card text-card-foreground shadow-sm hover:border-accent hover:bg-accent/5 transition-all duration-150"
+            >
+              <div className="p-6">
+                <div className="flex items-center gap-2 mb-2">
                   <Upload className="h-5 w-5 text-accent" />
-                  {link.label}
-                </CardTitle>
-                <CardDescription>{link.description}</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <Button asChild className="w-full">
-                  <Link href={link.href}>
-                    Upload
-                    <ArrowRight className="ml-2 h-4 w-4" />
-                  </Link>
-                </Button>
-              </CardContent>
-            </Card>
+                  <h3 className="text-lg font-semibold">{link.label}</h3>
+                </div>
+                <p className="text-sm text-muted-foreground mb-4">{link.description}</p>
+                <div className="inline-flex items-center justify-center rounded-md bg-primary text-primary-foreground px-4 py-2 text-sm font-medium hover:bg-primary/90 transition-colors">
+                  Upload
+                  <ArrowRight className="ml-2 h-4 w-4" />
+                </div>
+              </div>
+            </Link>
           ))}
         </div>
 
