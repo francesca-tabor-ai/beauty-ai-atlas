@@ -18,6 +18,11 @@ export default function LoginPage() {
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -42,7 +47,7 @@ export default function LoginPage() {
         const role = data.user.app_metadata?.role || data.user.user_metadata?.role;
         
         // Check for next parameter
-        const nextUrl = searchParams.get("next");
+        const nextUrl = mounted ? searchParams.get("next") : null;
         
         if (role === "admin") {
           // Redirect to next URL if provided, otherwise admin dashboard
